@@ -14,6 +14,7 @@ def extract_text_from_pdf(file_upload):
     return "".join(text)
     
 def chat_with_grok(text, question):
+    text = text.encode('utf-8', errors='ignore').decode('utf-8')
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     message = f"You are a helpful assistant. Answer questions based only on this document, never copy paste all the content of the pdf. Also if you are not sure, ask for more clear question: {text} \n\nQuestion: {question}"
     response = client.chat.completions.create(
