@@ -43,7 +43,7 @@ file_upload = st.file_uploader("Upload a text based pdf file", type=["pdf"])
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    
+question = None  
 try:
     if file_upload is not None:
        text = extract_text_from_pdf(file_upload)
