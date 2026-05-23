@@ -73,8 +73,8 @@ except Exception as e:
     if "Stream has ended" in str(e) or "PdfStream" in str(e):
         st.error("This file is not a valid PDF. Please upload a real PDF file.")
     else:
-        send_error_email(str(e), context=f"File: {file_upload.name if file_upload else 'No file'}\nQuestion: {question if question else 'No question asked'}")
         st.error("Something went wrong. Please contact pyth0nc0der.199@gmail.com")
+    send_error_email(str(e), context=f"File: {file_upload.name if file_upload else 'No file'}\nQuestion: {question if question else 'No question asked'}")
     st.stop()
    
        
