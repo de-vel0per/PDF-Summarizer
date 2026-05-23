@@ -82,8 +82,8 @@ except Exception as e:
        st_error = "Something went wrong. Please contact pyth0nc0der.199@gmail.com"
     st.error(st_error)
     send_error_email(str(e), context=f"""File: {file_upload.name if file_upload else 'No file'} 
-                                         Error: {str(st_error)}
-                                         Question: {question if question else 'No question asked'}""")
+                        Error: {str(st_error)}
+                        Question: {question if question else 'No question asked'}""")
 
     st.stop()
     
