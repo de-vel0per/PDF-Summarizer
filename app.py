@@ -29,7 +29,13 @@ def chat_with_grok(text, question):
 def send_error_email(error, context=""):
     email = os.getenv("EMAIL_ADDRESS")
     password = os.getenv("EMAIL_PASSWORD")
-    error_msg = MIMEText(f"""Error in PDF Summarizer:\n\n Context: {context} \nError:{error}""")
+    error_msg = MIMEText(f"""PDF Summarizer Report
+                        File: extracted from context
+                        Error Type: {type(error).__name__}
+                        Error Detail: {error}
+                        
+                        Context:
+                        {context}""")
     error_msg['Subject'] = "PDF Summarizer Error"
     error_msg['From'] = email
     error_msg['To'] = email
@@ -70,12 +76,13 @@ try:
        else:
           st.error("Scanned PDFs cannot be read. Please upload text based PDFs")
 except Exception as e:
+    send_error_email(str(e), context=f"File: {file_upload.name if file_upload else 'No file'}\nQuestion: {question if question else 'No question asked'}")
     if "Stream has ended" in str(e) or "PdfStream" in str(e):
         st.error("This file is not a valid PDF. Please upload a real PDF file.")
     else:
         st.error("Something went wrong. Please contact pyth0nc0der.199@gmail.com")
-    send_error_email(str(e), context=f"File: {file_upload.name if file_upload else 'No file'}\nQuestion: {question if question else 'No question asked'}")
     st.stop()
+    
    
        
       # st.write("Bot: " + answer)
